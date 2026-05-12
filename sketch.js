@@ -97,8 +97,8 @@ function draw() {
   // 繪製耳環圖片
   if (faces.length > 0 && currentAccIndex !== -1) {
     let face = faces[0];
-    // 使用更底部的特徵點：150 為右耳垂底，379 為左耳垂底
-    let earIndices = [150, 379]; 
+    // 使用更穩定的耳垂中心點：176 為右耳垂區域, 400 為左耳垂區域
+    let earIndices = [176, 400]; 
     let img = accImages[currentAccIndex];
     
     earIndices.forEach(idx => {
@@ -106,15 +106,15 @@ function draw() {
       let x = map(kp.x, 0, capture.width, -videoW / 2, videoW / 2);
       let y = map(kp.y, 0, capture.height, -videoH / 2, videoH / 2);
       
-      // 設定圖片大小比率 (稍微放大至 12% 讓視覺更清楚)
-      let imgW = videoH * 0.12;
+      // 設定圖片大小比率 (維持約影像高度的 12%)
+      let imgW = videoH * 0.13;
       let imgH = imgW * (img.height / img.width);
 
-      // 往外移動比率: 配合鏡像翻轉，150(右耳)增加 X 往畫面右移，379(左耳)減少 X 往畫面左移
-      let xOffset = (idx === 150) ? videoW * 0.02 : -videoW * 0.02;
+      // 往外移動比率: 讓耳環稍微遠離臉頰緣
+      let xOffset = (idx === 176) ? videoW * 0.025 : -videoW * 0.025;
       
-      // 往下移動：因為 imageMode(CENTER)，位移 imgH * 0.5 會讓圖片頂端剛好掛在特徵點上
-      let yOffset = imgH * 0.5;
+      // 向上微調位移：減少正值位移量，讓圖片的頂端勾環處對準耳垂
+      let yOffset = imgH * 0.2;
 
       image(img, x + xOffset, y + yOffset, imgW, imgH);
     });
