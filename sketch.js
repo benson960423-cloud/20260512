@@ -109,10 +109,10 @@ function draw() {
       let imgW = videoH * 0.1;
       let imgH = imgW * (img.height / img.width);
 
-      // 往外移動比率: 162是右耳(往左移), 389是左耳(往右移)
-      let xOffset = (idx === 162) ? -videoW * 0.02 : videoW * 0.02;
-      // 往上移動比率
-      let yOffset = -videoH * 0.01;
+      // 往外移動比率: 配合鏡像翻轉後的座標系，162(右耳)需增加 X 座標往左移，389(左耳)需減少 X 座標往右移
+      let xOffset = (idx === 162) ? videoW * 0.03 : -videoW * 0.03;
+      // 往下移動比率: 正值會讓圖片向下移動，使其掛在耳垂下方
+      let yOffset = videoH * 0.04;
 
       image(img, x + xOffset, y + yOffset, imgW, imgH);
     });
