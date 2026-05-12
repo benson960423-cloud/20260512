@@ -52,8 +52,8 @@ function draw() {
   // 繪製耳環 (辨識耳垂部分)
   if (faces.length > 0) {
     let face = faces[0];
-    // FaceMesh 關鍵點：176 是左耳垂區域，400 是右耳垂區域
-    let earIndices = [176, 400]; 
+    // FaceMesh 關鍵點：162 是左耳垂底部，389 是右耳垂底部
+    let earIndices = [162, 389]; 
     
     earIndices.forEach(idx => {
       let kp = face.keypoints[idx];
